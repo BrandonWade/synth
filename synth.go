@@ -1,6 +1,7 @@
 package synth
 
 import (
+	"log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -31,4 +32,23 @@ func TrimPaths(paths []string, subPath string) []string {
 	}
 
 	return trimmed
+}
+
+// CreateFile - creates a file and all folders along the path
+func CreateFile(fullPath string) (*os.File, error) {
+	// Create any nested folders
+	if strings.Count(fullPath, string(os.PathSeparator)) > 1 {
+		index := strings.LastIndex(fullPath, string(os.PathSeparator))
+		subPath := fullPath[:index]
+		os.MkdirAll(subPath, os.ModePerm)
+	}
+
+	// Create the file
+	filePtr, err := os.Create(fullPath)
+	if err != nil {
+		log.Printf("error creating file %s\n", fullPath)
+		return nil, err
+	}
+
+	return filePtr, nil
 }
