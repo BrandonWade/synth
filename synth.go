@@ -33,6 +33,17 @@ func TrimPaths(files []*File, subPath string) {
 	}
 }
 
+// GetPathSlice - returns a slice of strings containing the Path property in files
+func GetPathSlice(files []*File) []string {
+	paths := []string{}
+
+	for _, file := range files {
+		paths = append(paths, file.Path)
+	}
+
+	return paths
+}
+
 // CreateFile - creates a file and all folders along the path
 func CreateFile(fullPath string) (*os.File, error) {
 	// Create any nested folders
