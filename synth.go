@@ -13,7 +13,11 @@ func Scan(dir string) ([]*File, error) {
 
 	err := filepath.Walk(dir, func(path string, file os.FileInfo, err error) error {
 		if !file.IsDir() {
-			files = append(files, &File{path, file})
+			files = append(files, &File{
+				Path: path,
+				Size: file.Size(),
+				File: file,
+			})
 		}
 
 		return nil

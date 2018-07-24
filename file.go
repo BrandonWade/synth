@@ -2,8 +2,9 @@ package synth
 
 import "os"
 
-// File - the model for a file on disk
+// File - the model representing a file on disk
 type File struct {
-	Path string      `json:"path"`
-	File os.FileInfo `json:"file"`
+	Path string `json:"path"`
+	Size int64  `json:"size"`
+	File os.FileInfo
 }
